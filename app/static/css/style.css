@@ -1,0 +1,50 @@
+body {
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    background-color: #f4f6f9;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #1f2937;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin-left: 1rem;
+}
+
+.dashboard {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.dashboard h1 {
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    color: #111827;
+}
+
+.card {
+    background: #f9fafb;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-left: 5px solid #2563eb;
+    border-radius: 8px;
+}
+
+a.add-transaction {
+    color: #2563eb;
+    font-weight: bold;
+    text-decoration: none;
+}

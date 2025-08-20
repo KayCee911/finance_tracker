@@ -1,3 +1,4 @@
+from flask_login import UserMixin
 from . import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -6,7 +7,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 # ==============================
 # User Model
 # ==============================
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = "user"
 
     id = db.Column(db.Integer, primary_key=True)
