@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="mb-4">Dashboard</h2>
+
+<div class="row">
+    <!-- Income card -->
+    <div class="col-md-4">
+        <div class="card text-bg-success mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Total Income</h5>
+                <p class="card-text fs-4">{{ total_income }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Expense card -->
+    <div class="col-md-4">
+        <div class="card text-bg-danger mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Total Expenses</h5>
+                <p class="card-text fs-4">{{ total_expenses }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Balance card -->
+    <div class="col-md-4">
+        <div class="card text-bg-primary mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Balance</h5>
+                <p class="card-text fs-4">{{ balance }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
