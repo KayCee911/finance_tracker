@@ -2,73 +2,64 @@
 {% block content %}
 <div class="container mt-5">
   <h2 class="mb-4">Dashboard</h2>
-
-  <!-- Summary Cards -->
-  <div class="row text-center mb-4">
+  
+  <!-- Cards -->
+  <div class="row mb-4">
     <div class="col-md-4">
-      <div class="card shadow-sm border-0 rounded-3">
+      <div class="card text-center shadow-sm">
         <div class="card-body">
-          <h5 class="card-title text-success">Income</h5>
-          <p class="fs-4 fw-bold">{{ income }}</p>
+          <h5 class="card-title">Balance</h5>
+          <p class="card-text fw-bold">₦{{ balance }}</p>
         </div>
       </div>
     </div>
     <div class="col-md-4">
-      <div class="card shadow-sm border-0 rounded-3">
+      <div class="card text-center shadow-sm">
         <div class="card-body">
-          <h5 class="card-title text-danger">Expenses</h5>
-          <p class="fs-4 fw-bold">{{ expenses }}</p>
+          <h5 class="card-title">Income</h5>
+          <p class="card-text text-success fw-bold">₦{{ income }}</p>
         </div>
       </div>
     </div>
     <div class="col-md-4">
-      <div class="card shadow-sm border-0 rounded-3">
+      <div class="card text-center shadow-sm">
         <div class="card-body">
-          <h5 class="card-title text-primary">Balance</h5>
-          <p class="fs-4 fw-bold">{{ balance }}</p>
+          <h5 class="card-title">Expenses</h5>
+          <p class="card-text text-danger fw-bold">₦{{ expenses }}</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Recent Transactions -->
-  <div class="card shadow-sm border-0 rounded-3">
-    <div class="card-header d-flex justify-content-between align-items-center">
-      <h5 class="mb-0">Recent Transactions</h5>
-      <a href="{{ url_for('main.add_transaction') }}" class="btn btn-sm btn-primary">+ Add Transaction</a>
-    </div>
-    <div class="card-body">
-      {% if transactions %}
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Type</th>
-            <th>Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for t in transactions %}
-          <tr>
-            <td>{{ t.date.strftime("%Y-%m-%d") }}</td>
-            <td>{{ t.description }}</td>
-            <td>
-              {% if t.type == "income" %}
-                <span class="badge bg-success">Income</span>
-              {% else %}
-                <span class="badge bg-danger">Expense</span>
-              {% endif %}
-            </td>
-            <td>{{ t.amount }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-      {% else %}
-      <p class="text-muted">No recent transactions.</p>
-      {% endif %}
+  <!-- Chart -->
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <canvas id="financeChart" width="400" height="400"></canvas>
     </div>
   </div>
 </div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const ctx = document.getElementById("financeChart").getContext("2d");
+
+  const financeData = {{ {"income": income, "expenses": expenses} | tojson | safe }};
+  console.log("Finance data:", financeData);
+
+  new Chart(ctx, {
+    type: "pie",
+    data: {
+      labels: ["Income", "Expenses"],
+      datasets: [
+        {
+          data: [financeData.income, financeData.expenses],
+          backgroundColor: ["#198754", "#dc3545"],
+        },
+      ],
+    },
+  });
+});
+</script>
 {% endblock %}
